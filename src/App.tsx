@@ -4,6 +4,7 @@ import { refreshAccessToken, getAccessToken } from './authStore';
 import { Login } from './LoginPage';
 import LoginSuccess from './Login';
 import Home from './Home';
+import NotFound from './NotFound';
 
 function App() {
   const [isInitializing, setIsInitializing] = useState(true);
@@ -55,6 +56,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   )

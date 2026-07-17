@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "concurrently \"npm run dev\" \"npm run dev --prefix ../graphql-node\""
+    "start": "concurrently \"npm run dev\" \"npm run dev --prefix ../cms-BE\""
   },
   "dependencies": {
     "@apollo/client": "^4.2.7",
