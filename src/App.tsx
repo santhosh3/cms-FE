@@ -1,10 +1,11 @@
 import { useState, useEffect, type JSX } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { refreshAccessToken, getAccessToken } from './authStore';
 import { Login } from './LoginPage';
 import LoginSuccess from './Login';
 import Home from './Home';
 import NotFound from './NotFound';
+import Navbar from './Navbar';
 
 function App() {
   const [isInitializing, setIsInitializing] = useState(true);
@@ -29,11 +30,11 @@ function App() {
     );
   }
 
-  const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+  const ProtectedRoute = ({ children }: { children?: JSX.Element }) => {
     if (!isAuthenticated && !getAccessToken()) {
       return <Navigate to="/login" replace />;
     }
-    return children;
+    return children ?? <Outlet />;
   };
 
   return (
@@ -47,16 +48,13 @@ function App() {
           path="/login-success"
           element={<LoginSuccess onLogin={() => setIsAuthenticated(true)} />}
         />
-
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="*" element={<NotFound />} />
+       
+        <Route element={<ProtectedRoute />}>
+          <Route element={<Navbar />}>
+            <Route path="/" element={<Home />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Route>
       </Routes>
     </BrowserRouter>
   )

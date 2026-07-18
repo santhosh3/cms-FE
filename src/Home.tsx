@@ -1,8 +1,8 @@
-import {Button} from '@mui/material'
+import {Button} from '@mui/material';
 
 function Home() {
   return (
-    <div>
+    <div style={{"padding":"10px"}}>
       <Button variant="contained">Contained</Button>
     </div>
   )
